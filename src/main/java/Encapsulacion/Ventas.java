@@ -16,12 +16,19 @@ public class Ventas implements Serializable {
     private String fechaCompra;
     private String nombreCliente;
 
-    @ManyToMany
+    @ManyToMany()
     private List<Producto> listaProductos;
 
 
     public Ventas(){
 
+    }
+
+    public Ventas(long id, String fechaCompra, String nombreCliente, List<Producto> listaProductos) {
+        this.id = id;
+        this.fechaCompra = fechaCompra;
+        this.nombreCliente = nombreCliente;
+        this.listaProductos = listaProductos;
     }
 
     public long getId() {

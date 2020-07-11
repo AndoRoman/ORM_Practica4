@@ -1,6 +1,5 @@
 package Encapsulacion;
 
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;

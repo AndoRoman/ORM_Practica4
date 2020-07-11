@@ -27,6 +27,7 @@ public class GestorBD<T> {
         if(entidad == null){
             return null;
         }
+
         //aplicando la clase de reflexión.
         for(Field f : entidad.getClass().getDeclaredFields()) {  //tomando todos los campos privados.
             if (f.isAnnotationPresent(Id.class)) { //preguntando por la anotación ID.
