@@ -22,11 +22,11 @@ public class ProductoBD extends GestorBD<Producto>{
         return instancia;
     }
 
-    public Producto findByNombre(String nombre){
+    public List<Producto> findByNombre(String nombre){
         EntityManager em = getEntityManager();
         Query query = em.createQuery("select e from Producto e where e.nombre like :nombre", Producto.class);
         query.setParameter("nombre", nombre+"%");
-        Producto P = query.getResultList();
+        List<Producto> P = query.getResultList();
         return P;
     }
 

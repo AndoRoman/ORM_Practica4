@@ -25,11 +25,11 @@ public class UsuarioBD extends GestorBD<Usuario> {
     }
 
     //Utilizando JPQL PARA BUSCAR USUARIOS
-    public Usuario findByUsuario(String usuario){
+    public List<Usuario> findByUsuario(String usuario){
         EntityManager em = getEntityManager();
         Query query = em.createQuery("select e from Usuario e where e.usuuario like :usuario", Usuario.class);
         query.setParameter("usuario", usuario+"%");
-        Usuario user = query.getResultList();
+        List<Usuario> user = query.getResultList();
         return user;
     }
 
