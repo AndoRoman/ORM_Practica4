@@ -1,9 +1,19 @@
 package Encapsulacion;
 
-public class Usuario {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Usuario")
+public class Usuario implements Serializable {
+    @Id
     private String usuario;
     private String nombre;
     private String password;
+
+    public Usuario(){
+
+    }
 
     public Usuario(String usuario, String nombre, String password) {
         this.usuario = usuario;

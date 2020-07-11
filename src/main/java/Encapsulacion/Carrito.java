@@ -1,11 +1,15 @@
 package Encapsulacion;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
-public class Carrito {
+public class Carrito implements Serializable {
+
     private long id;
-    private List<Producto> listaProductos;
     private String usuario;
+    private List<Producto> listaProductos;
 
     public Carrito(long id, List<Producto> listaProductos, String usuario) {
             this.id = id;
@@ -13,7 +17,8 @@ public class Carrito {
             this.usuario = usuario;
         }
 
-        public long getId() {
+
+    public long getId() {
             return id;
         }
 

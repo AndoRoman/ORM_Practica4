@@ -2,15 +2,12 @@ package Visual;
 
 import Encapsulacion.Carrito;
 import Encapsulacion.Producto;
-import Encapsulacion.VentasProductos;
+import Encapsulacion.Ventas;
 import Servicios.Coleccion_por_Defecto;
 import io.javalin.Javalin;
 
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControladorCarrito {
 
@@ -39,7 +36,7 @@ public class ControladorCarrito {
                 System.out.println("Compra de " + user + " Facturada: " + CrearCompra(user)); //<--CREANDO COMPRA EN BD
 
                 int Index = servicio.getListVentas().size() - 1; //<-- indices de ultima venta
-                VentasProductos aux = servicio.getListVentas().get(Index);//BaseDatos.getInstancia().getVentaBD().get(Index); //Tomando venta de la BD
+                Ventas aux = servicio.getListVentas().get(Index);//BaseDatos.getInstancia().getVentaBD().get(Index); //Tomando venta de la BD
                 System.out.println("VENTA FACTURADA: " + aux.getListaProductos().toString());
                 view.put("listaProductos", aux.getListaProductos());
                 view.put("total", "Total Pagado: " + monto(aux.getListaProductos()) + "($RD)    " + "     Realizada el: " + Date.from(Instant.now()));
@@ -87,7 +84,7 @@ public class ControladorCarrito {
             }
         }
         //CREANDO NUEVA VENTA
-        VentasProductos aux = new VentasProductos();
+        Ventas aux = new Ventas();
         aux.setId(servicio.getListVentas().size() + 1);
         aux.setFechaCompra(Date.from(Instant.now()).toString());
         aux.setNombreCliente(i.getUsuario());

@@ -2,7 +2,7 @@ package Servicios;
 
 import Encapsulacion.Carrito;
 import Encapsulacion.Producto;
-import Encapsulacion.VentasProductos;
+import Encapsulacion.Ventas;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ public class Coleccion_por_Defecto {
     private List<Producto> listProduct = new ArrayList<>();
     private List<Producto> indexes = new ArrayList<>();
     private List<Carrito> listCarros = new ArrayList<>();
-    private List<VentasProductos> listVentas = new ArrayList<>();
+    private List<Ventas> listVentas = new ArrayList<>();
 
     private Coleccion_por_Defecto(){
 
         //reñenando lista de productos por defecto en el carrito
 
-        //indexes.add(new Producto(1, "ticket",new BigDecimal("000"), 1));
+        indexes.add(new Producto(1, "ticket",new BigDecimal("000"), 1));
 
         //Añadiendo Productos
         listProduct.add(new Producto(listProduct.size() + 1, "ticket",new BigDecimal("000"), 1));
@@ -39,16 +39,16 @@ public class Coleccion_por_Defecto {
     }
 
 
-    public List<VentasProductos> getListVentas() {
+    public List<Ventas> getListVentas() {
         return listVentas;
     }
 
-    public void setListVentas(List<VentasProductos> listVentas) {
+    public void setListVentas(List<Ventas> listVentas) {
         this.listVentas = listVentas;
     }
 
     //INGRESA UNA VENTA A LA LISTA
-    public void SetVenta(VentasProductos NuevaVenta){
+    public void SetVenta(Ventas NuevaVenta){
         listVentas.add(NuevaVenta);
     }
 

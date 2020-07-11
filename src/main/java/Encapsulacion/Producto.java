@@ -1,13 +1,25 @@
 package Encapsulacion;
 
+import org.jetbrains.annotations.NotNull;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Producto {
-
+@Entity
+@Table(name = "Producto")
+public class Producto implements Serializable {
+    @Id
     private int id;
+    @NotNull
     private String nombre;
     private BigDecimal precio;
     private int cantidad;
+
+    public Producto() {
+    }
 
     public Producto(int id, String nombre, BigDecimal precio, int cantidad) {
         this.id = id;

@@ -4,10 +4,10 @@ import org.h2.tools.Server;
 
 import java.sql.SQLException;
 
-public class BD {
-    private static BD instancia;
+public class arranque_BD {
+    private static arranque_BD instancia;
 
-    public BD(){
+    public arranque_BD(){
 
         //INICIALIZANDO BASE DE DATOS
         try {
@@ -25,9 +25,9 @@ public class BD {
     }
 
 
-    public static BD getInstancia(){
+    public static arranque_BD getInstancia(){
         if(instancia == null){
-            instancia=new BD();
+            instancia=new arranque_BD();
         }
         return instancia;
     }

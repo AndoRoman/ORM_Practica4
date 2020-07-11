@@ -1,13 +1,28 @@
 package Encapsulacion;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class VentasProductos {
 
+@Entity
+@Table(name = "Ventas")
+public class Ventas implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String fechaCompra;
     private String nombreCliente;
+
+    @ManyToMany
     private List<Producto> listaProductos;
+
+
+    public Ventas(){
+
+    }
 
     public long getId() {
         return id;
@@ -39,6 +54,16 @@ public class VentasProductos {
 
     public void setListaProductos(List<Producto> listaProductos) {
         this.listaProductos = listaProductos;
+    }
+
+    @Transient
+    public Double Precio_Total() {
+        Double monto = 0.0;
+        List<Producto> productos = getListaProductos();
+        for (Producto p : productos) {
+            monto += (p.getPrecio()).doubleValue()*p.getCantidad();
+        }
+        return monto;
     }
 
 }

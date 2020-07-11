@@ -1,3 +1,4 @@
+import Servicios.arranque_BD;
 import Servicios.GestorProductos;
 import Visual.ControladorCarrito;
 import Visual.ControladorPlantilla;
@@ -7,6 +8,10 @@ import io.javalin.Javalin;
 public class Main {
 
     public static void main(String[] args) {
+
+        //INICIANDO BASE DE DATOS
+        arranque_BD.getInstancia();
+        //INICIANDO JAVALIN
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/HTML");
             config.addStaticFiles("/HTML/Login.html");
