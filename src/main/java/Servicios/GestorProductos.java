@@ -13,17 +13,20 @@ public class GestorProductos {
 
         //BOTÓN AGREGAR y MODIFICAR
         app.post("/agree", ctx -> {
+            int idProducto = Integer.parseInt(ctx.formParam("idProducto"));
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
+            int cantidad = Integer.parseInt(ctx.formParam("cantidadProducto"));
+
             boolean toke = false;
             for (Producto aux: servicio.getListProduct()){
                 if (aux.getNombre().matches(producto)) {
-                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(producto, precio));
+                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(idProducto, producto, precio, cantidad));
                     toke = true;
                 }
             }
             if(!toke){
-                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio));
+                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, cantidad));
             }
 
             ctx.redirect("/");
@@ -37,35 +40,47 @@ public class GestorProductos {
 
 
     }
-    public boolean agregarProduct(String producto, String precio){
-        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio), 1);
+    public boolean agregarProduct(String producto, String precio, int cantidad){
+        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio), cantidad);
         servicio.getListProduct().add(aux);
+        //AGREGANDO A BD
+        ProductoBD.getInstancia().crear(aux);
 
         return true;
     }
     public boolean eliminar(String producto){
         int index = 0;
+        int id = 0;
         boolean ok = false;
         for (Producto i : servicio.getListProduct()) {
             if (i.getNombre().matches(producto)) {
                 index = servicio.getListProduct().indexOf(i);
+                id = i.getId();
                 ok = true;
             }
         }
         servicio.getListProduct().remove(index);
+        //Eliminando de BD
+        ProductoBD.getInstancia().eliminar(id);
         return ok;
     }
 
-    public boolean modificarProducto(String producto, String precio){
-        int index = 0;
+    public boolean modificarProducto(int id, String producto, String precio, int cantidad){
         boolean ok = false;
         for (Producto i : servicio.getListProduct()) {
             if(i.getNombre().matches(producto)){
                 i.setPrecio(new BigDecimal(precio));
-                index = servicio.getListProduct().indexOf(i);
+                i.setCantidad(cantidad);
+
+                //ACTUALIZANDO EN BD
+                ProductoBD.getInstancia().editar(i);
                 ok = true;
+                break;
             }
         }
+
+
+
         return ok;
     }
 

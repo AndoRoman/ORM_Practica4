@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -58,5 +59,12 @@ public class Producto implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    @Transient
+    public float monto(){
+        float sum = 0;
+            sum = this.cantidad*(this.precio).floatValue();
+        return sum;
     }
 }

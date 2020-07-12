@@ -4,6 +4,9 @@ import Encapsulacion.Carrito;
 import Encapsulacion.Producto;
 import Encapsulacion.Ventas;
 import Servicios.Coleccion_por_Defecto;
+import Servicios.GestorBD;
+import Servicios.ProductoBD;
+import Servicios.VentasBD;
 import io.javalin.Javalin;
 
 import java.time.Instant;
@@ -35,11 +38,11 @@ public class ControladorCarrito {
 
                 System.out.println("Compra de " + user + " Facturada: " + CrearCompra(user)); //<--CREANDO COMPRA EN BD
 
-                int Index = servicio.getListVentas().size() - 1; //<-- indices de ultima venta
-                Ventas aux = servicio.getListVentas().get(Index);//BaseDatos.getInstancia().getVentaBD().get(Index); //Tomando venta de la BD
+                int Index = servicio.getListVentas().size(); //<-- indice de ultima venta
+                Ventas aux = VentasBD.getInstance().find(Index); //Tomando venta de la BD
                 System.out.println("VENTA FACTURADA: " + aux.getListaProductos().toString());
                 view.put("listaProductos", aux.getListaProductos());
-                view.put("total", "Total Pagado: " + monto(aux.getListaProductos()) + "($RD)    " + "     Realizada el: " + Date.from(Instant.now()));
+                view.put("total", "Total Pagado: " + aux.Precio_Total() + "($RD)    " + "     Realizada el: " + Date.from(Instant.now()));
                 try {
                     view.put("user", "Carrito de: " + ctx.sessionAttribute("usuario"));
                     if (ctx.sessionAttribute("usuario").toString().matches("admin")) {
@@ -64,13 +67,6 @@ public class ControladorCarrito {
         return instancia;
     }
 
-    private double monto(List<Producto> P){
-        double total = 0;
-        for (Producto i: P){
-            total = total + i.getPrecio().floatValue();
-        }
-        return total;
-    }
 
     private boolean CrearCompra(String user) {
         Carrito i = null;
@@ -85,14 +81,19 @@ public class ControladorCarrito {
         }
         //CREANDO NUEVA VENTA
         Ventas aux = new Ventas();
-        aux.setId(servicio.getListVentas().size() + 1);
+        aux.setId(servicio.getListVentas().size());
         aux.setFechaCompra(Date.from(Instant.now()).toString());
         aux.setNombreCliente(i.getUsuario());
         aux.setListaProductos(i.getListaProductos());
+        //ERRORR AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-        servicio.SetVenta(aux);
-        //VERIFICACIÓN
-        return servicio.getListVentas().contains(aux);
+        servicio.SetVenta(new Ventas(Date.from(Instant.now()).toString(), i.getUsuario(), i.getListaProductos()));
+
+        //CREANDO NUEVA VENTA EN BD
+        VentasBD.getInstance().crear(aux);
+
+        //VERIFICACIÓN EN BD
+        return VentasBD.getInstance().GetAllVentas().contains(aux);
 
     }
 
@@ -132,8 +133,8 @@ public class ControladorCarrito {
                 break;
             }
         }
-        //CLONO EL PRODUCTO QUE SE QUIERE AGREGAR
-        nuevoProducto = servicio.getListProduct().get(indexProduct);
+        //CLONO EL PRODUCTO QUE SE QUIERE AGREGAR DESDE LA BD
+        nuevoProducto = ProductoBD.getInstancia().find(indexProduct);
         //LO AGREGO AL CARRITO
         servicio.getListCarros().get(indexUser).getListaProductos().add(nuevoProducto);
     }

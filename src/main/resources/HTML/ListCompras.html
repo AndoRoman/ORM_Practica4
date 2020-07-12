@@ -33,8 +33,8 @@
             <tr th:each="Producto : ${tabla.listaProductos}">
                 <td class="align-middle"; th:text="${Producto.nombre}">TEST</td>
                 <td class="align-middle"; th:text="${Producto.precio}">1000</td>
-                <td class="align-middle";>1</td>
-                <td class="align-middle"; th:text="${Producto.precio}"></td>
+                <td class="align-middle"; th:text="${Producto.cantidad}"></td>
+                <td class="align-middle"; th:text="${Producto.monto}"></td>
             </tr>
             </tbody>
         </table>

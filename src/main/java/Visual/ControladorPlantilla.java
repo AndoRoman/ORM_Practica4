@@ -3,6 +3,8 @@ package Visual;
 import Encapsulacion.Carrito;
 import Encapsulacion.Producto;
 import Servicios.Coleccion_por_Defecto;
+import Servicios.ProductoBD;
+import Servicios.VentasBD;
 import io.javalin.Javalin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
@@ -38,7 +40,7 @@ public class ControladorPlantilla {
                         ctx.cookie("usuario",ctx.cookie("JSESSIONID"));
                         ctx.sessionAttribute("usuario" ,ctx.cookie("JSESSIONID"));
                     }
-                    List<Producto> listaProductos = servicio.getListProduct();
+                    List<Producto> listaProductos = ProductoBD.getInstancia().findAll();
                     Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
                     String cant = String.valueOf(aux.getListaProductos().size());
                     Map<String, Object> modelo = new HashMap<>();
@@ -76,7 +78,7 @@ public class ControladorPlantilla {
                     Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
                     Map<String, Object> view = new HashMap<>();
                     view.put("item", "Carrito de Compras(" + aux.getListaProductos().size() + ")");
-                    view.put("ventasProductos", servicio.getListVentas());
+                    view.put("ventasProductos", VentasBD.getInstance().findAll());
                     if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
                         view.put("admin", "Lista de Compras Realizadas");
                         view.put("adminProduct", "Gestion de Productos");
@@ -142,14 +144,6 @@ public class ControladorPlantilla {
     }
 
 
-
-
-    private List<Producto> getProductos() {
-        List<Producto> lista = new ArrayList<>();
-
-        lista.addAll(servicio.getListProduct());
-        return lista;
-    }
 
     private double monto(List<Producto> P){
         double total = 0;
