@@ -1,8 +1,6 @@
 package Visual;
 
-import Encapsulacion.Carrito;
-import Encapsulacion.Producto;
-import Encapsulacion.Ventas;
+import Encapsulacion.*;
 import Servicios.Coleccion_por_Defecto;
 import Servicios.GestorBD;
 import Servicios.ProductoBD;
@@ -38,7 +36,8 @@ public class ControladorCarrito {
 
                 System.out.println("Compra de " + user + " Facturada: " + CrearCompra(user)); //<--CREANDO COMPRA EN BD
 
-                int Index = servicio.getListVentas().size(); //<-- indice de ultima venta
+                long Index = servicio.getListVentas().size(); //<-- indice de ultima venta
+                System.out.println("el id : " + Index);
                 Ventas aux = VentasBD.getInstance().find(Index); //Tomando venta de la BD
                 System.out.println("VENTA FACTURADA: " + aux.getListaProductos().toString());
                 view.put("listaProductos", aux.getListaProductos());
@@ -70,6 +69,7 @@ public class ControladorCarrito {
 
     private boolean CrearCompra(String user) {
         Carrito i = null;
+
         int posicion_carrito = 0;
         for (Carrito carroComprado: servicio.getListCarros()) {
             if (carroComprado.getUsuario().matches(user)){
@@ -79,21 +79,28 @@ public class ControladorCarrito {
                 break;
             }
         }
-        //CREANDO NUEVA VENTA
+        //CREANDO NUEVA VENTA en La app
         Ventas aux = new Ventas();
         aux.setId(servicio.getListVentas().size());
         aux.setFechaCompra(Date.from(Instant.now()).toString());
         aux.setNombreCliente(i.getUsuario());
-        aux.setListaProductos(i.getListaProductos());
-        //ERRORR AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-        servicio.SetVenta(new Ventas(Date.from(Instant.now()).toString(), i.getUsuario(), i.getListaProductos()));
+
+
+        //CONVIRTIENDO PRODUCTOS DEL CARRITO A PRODUCTOS VENDIDOS
+        List<ventaProducto> vendidos = new ArrayList<>();
+        for (Producto p: i.getListaProductos()) {
+            ProductoVendido unProductoVendido = new ProductoVendido(p.getNombre(), p.getPrecio());
+            vendidos.add(new ventaProducto(unProductoVendido, cantidadProducto(unProductoVendido.getNombre(), i)));
+        }
+        aux.setListaProductos(vendidos);
+
+        servicio.SetVenta(aux);
 
         //CREANDO NUEVA VENTA EN BD
-        VentasBD.getInstance().crear(aux);
+        VentasBD.getInstance().crear(new Ventas(Date.from(Instant.now()).toString(), aux.getNombreCliente(), aux.getListaProductos()));
 
-        //VERIFICACIÓN EN BD
-        return VentasBD.getInstance().GetAllVentas().contains(aux);
+        return true; //VentasBD.getInstance().GetAllVentas().contains(aux);
 
     }
 
@@ -137,6 +144,18 @@ public class ControladorCarrito {
         nuevoProducto = ProductoBD.getInstancia().find(indexProduct);
         //LO AGREGO AL CARRITO
         servicio.getListCarros().get(indexUser).getListaProductos().add(nuevoProducto);
+    }
+
+
+    //DEBIDO A QUE AL CARRITO SE AGREGA CADA PRODUCTO COMO UN OBJECTO COMO TAL SE OBTIENE LA CANTIDAD DE ESTA FORMA
+    private int cantidadProducto(String nombreProducto , Carrito cart){
+        int cant = 0;
+        for (Producto p: cart.getListaProductos()) {
+            if (p.getNombre().matches(nombreProducto)){
+                cant++;
+            }
+        }
+        return cant;
     }
 
 

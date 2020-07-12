@@ -8,6 +8,8 @@
         <class>Encapsulacion.Usuario</class>
         <class>Encapsulacion.Producto</class>
         <class>Encapsulacion.Ventas</class>
+        <class>Encapsulacion.ProductoVendido</class>
+        <class>Encapsulacion.ventaProducto</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/ORM_Practica#4" />
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

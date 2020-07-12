@@ -31,7 +31,7 @@ public class arranque_BD {
         //Productos
         for (Producto p: Coleccion_por_Defecto.getInstancia().getListProduct())
         {
-            ProductoBD.getInstancia().crear(new Producto(p.getId(), p.getNombre(), p.getPrecio(), 1));
+            ProductoBD.getInstancia().crear(new Producto(p.getId(), p.getNombre(), p.getPrecio()));
         }
         //Usuario
         UsuarioBD.getInstancia().crear(new Usuario("admin", "admin", "admin"));

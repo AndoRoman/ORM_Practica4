@@ -1,39 +1,23 @@
 package Encapsulacion;
 
-import org.jetbrains.annotations.NotNull;
-
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "Producto")
-public class Producto implements Serializable {
-    @Id
-    private int id;
-    @NotNull
+@Embeddable
+public class ProductoVendido implements Serializable {
+
     private String nombre;
     private BigDecimal precio;
 
-
-    public Producto() {
+    public ProductoVendido(){
     }
 
-    public Producto(int id, String nombre, BigDecimal precio) {
-        this.id = id;
+    public ProductoVendido(String nombre, BigDecimal precio) {
         this.nombre = nombre;
         this.precio = precio;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {

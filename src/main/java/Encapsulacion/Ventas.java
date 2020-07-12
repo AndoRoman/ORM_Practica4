@@ -16,16 +16,17 @@ public class Ventas implements Serializable {
     private String fechaCompra;
     private String nombreCliente;
 
-    @ManyToMany()
-    private List<Producto> listaProductos;
+    @Transient
+    private Double monto = 0D;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<ventaProducto> listaProductos;
 
     public Ventas(){
 
     }
 
-    public Ventas(long id, String fechaCompra, String nombreCliente, List<Producto> listaProductos) {
-        this.id = id;
+    public Ventas(String fechaCompra, String nombreCliente, List<ventaProducto> listaProductos) {
         this.fechaCompra = fechaCompra;
         this.nombreCliente = nombreCliente;
         this.listaProductos = listaProductos;
@@ -55,22 +56,22 @@ public class Ventas implements Serializable {
         this.nombreCliente = nombreCliente;
     }
 
-    public List<Producto> getListaProductos() {
+    public List<ventaProducto> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(List<Producto> listaProductos) {
+    public void setListaProductos(List<ventaProducto> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
+
     @Transient
     public Double Precio_Total() {
-        Double monto = 0.0;
-        List<Producto> productos = getListaProductos();
-        for (Producto p : productos) {
-            monto += (p.getPrecio()).doubleValue()*p.getCantidad();
+        List<ventaProducto> productos = getListaProductos();
+        for (ventaProducto p : productos) {
+            this.monto += p.getTotalprecio();
         }
-        return monto;
+        return this.monto;
     }
 
 }

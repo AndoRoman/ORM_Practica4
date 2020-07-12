@@ -16,17 +16,16 @@ public class GestorProductos {
             int idProducto = Integer.parseInt(ctx.formParam("idProducto"));
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
-            int cantidad = Integer.parseInt(ctx.formParam("cantidadProducto"));
 
             boolean toke = false;
             for (Producto aux: servicio.getListProduct()){
                 if (aux.getNombre().matches(producto)) {
-                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(idProducto, producto, precio, cantidad));
+                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(idProducto, producto, precio));
                     toke = true;
                 }
             }
             if(!toke){
-                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, cantidad));
+                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio));
             }
 
             ctx.redirect("/");
@@ -40,8 +39,8 @@ public class GestorProductos {
 
 
     }
-    public boolean agregarProduct(String producto, String precio, int cantidad){
-        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio), cantidad);
+    public boolean agregarProduct(String producto, String precio){
+        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio));
         servicio.getListProduct().add(aux);
         //AGREGANDO A BD
         ProductoBD.getInstancia().crear(aux);
@@ -65,12 +64,11 @@ public class GestorProductos {
         return ok;
     }
 
-    public boolean modificarProducto(int id, String producto, String precio, int cantidad){
+    public boolean modificarProducto(int id, String producto, String precio){
         boolean ok = false;
         for (Producto i : servicio.getListProduct()) {
             if(i.getNombre().matches(producto)){
                 i.setPrecio(new BigDecimal(precio));
-                i.setCantidad(cantidad);
 
                 //ACTUALIZANDO EN BD
                 ProductoBD.getInstancia().editar(i);

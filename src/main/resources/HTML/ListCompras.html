@@ -31,12 +31,13 @@
             <th class="align-middle"; scope="col">Total ($RD)</th>
 
             <tr th:each="Producto : ${tabla.listaProductos}">
-                <td class="align-middle"; th:text="${Producto.nombre}">TEST</td>
-                <td class="align-middle"; th:text="${Producto.precio}">1000</td>
+                <td class="align-middle"; th:text="${Producto.producto.nombre}">TEST</td>
+                <td class="align-middle"; th:text="${Producto.producto.precio}">1000</td>
                 <td class="align-middle"; th:text="${Producto.cantidad}"></td>
-                <td class="align-middle"; th:text="${Producto.monto}"></td>
+                <!-- <td class="align-middle"; th:text="${Producto.monto}"></td> -->
             </tr>
             </tbody>
+            <tfoot th:text="${tabla.Precio_Total}"></tfoot>
         </table>
     </div>
 

@@ -20,12 +20,5 @@ public class VentasBD extends GestorBD<Ventas> {
         return instancia;
     }
 
-    public List<Ventas> GetAllVentas() {
-        EntityManager em = getEntityManager();
-        Query query = em.createQuery("select e from Ventas", Ventas.class);
-        List<Ventas> lista = query.getResultList();
-        return lista;
-    }
-
 
 }

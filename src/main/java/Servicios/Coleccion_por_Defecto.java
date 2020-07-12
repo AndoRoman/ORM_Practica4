@@ -19,15 +19,15 @@ public class Coleccion_por_Defecto {
 
         //reñenando lista de productos por defecto en el carrito
 
-        indexes.add(new Producto(1, "ticket",new BigDecimal("000"), 1));
+        indexes.add(new Producto(1, "ticket",new BigDecimal("000")));
 
         //Añadiendo Productos
-        listProduct.add(new Producto(listProduct.size() + 1, "ticket",new BigDecimal("000"), 1));
-        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Maiz", new BigDecimal("50"), 1));
-        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Salsa", new BigDecimal("75"), 1));
-        listProduct.add(new Producto(listProduct.size()+ 1, "Espaguetis", new BigDecimal("30"), 1));
-        listProduct.add(new Producto(listProduct.size()+ 1, "Pollo", new BigDecimal("38"), 1));
-        listProduct.add(new Producto(listProduct.size() + 1, "Producto de Prueba",new BigDecimal("1234"), 1));
+        listProduct.add(new Producto(listProduct.size() + 1, "ticket",new BigDecimal("000")));
+        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Maiz", new BigDecimal("50")));
+        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Salsa", new BigDecimal("75")));
+        listProduct.add(new Producto(listProduct.size()+ 1, "Espaguetis", new BigDecimal("30")));
+        listProduct.add(new Producto(listProduct.size()+ 1, "Pollo", new BigDecimal("38")));
+        listProduct.add(new Producto(listProduct.size() + 1, "Producto de Prueba",new BigDecimal("1234")));
 
     }
 

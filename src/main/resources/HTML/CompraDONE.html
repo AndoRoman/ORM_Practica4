@@ -23,10 +23,8 @@
             </thead>
             <tbody>
             <tr th:each="Producto : ${listaProductos}">
-                <form method="post" action="/sacar">
-                    <td class="align-middle"; th:text="${Producto.nombre}"></td>
-                    <td class="align-middle"; th:text="${Producto.precio}"></td>
-                </form>
+                    <td class="align-middle"; th:text="${Producto.producto.nombre}"></td>
+                    <td class="align-middle"; th:text="${Producto.producto.precio}"></td>
             </tr>
             </tbody>
             <tfoot colspan="2"; th:text="${Precio_Total}">TOTAL:</tfoot>
