@@ -13,17 +13,19 @@ public class ControladorSesion {
     public void control(Javalin app){
 
         app.get("/LoginOUT", ctx -> {
-            String userssession = ctx.cookie("userssession");
-            LimpiezaBD(userssession);
-            //Eliminando Cookies
-            ctx.removeCookie("userssession");
+            if(ctx.cookie("userssession") != null) {
+                String userssession = ctx.cookie("userssession");
+                LimpiezaBD(userssession);
+                //Eliminando Cookies
+                ctx.removeCookie("userssession");
+            }
             ctx.removeCookie("usuario");
             ctx.sessionAttribute("usuario", null);
             ctx.redirect("/");
         });
 
         //VERIFICANDO SESSIÓN
-        app.get("/Login.html", ctx -> {
+        app.get("/LoginPag", ctx -> {
             String user = null;
             String pass= null;
 
@@ -40,7 +42,7 @@ public class ControladorSesion {
                 }
             }
             else{
-                ctx.render("/HTML/Login.html");
+                ctx.render("/Plantilla/AdminPag/dist/login.html");
             }
         });
 
@@ -76,7 +78,7 @@ public class ControladorSesion {
                 //redireccionando
                 ctx.redirect("/ListCompras.html");
             }else {
-                ctx.redirect("/401.html");
+                ctx.status(401);
             }
 
 
@@ -97,8 +99,12 @@ public class ControladorSesion {
 
     private boolean autenticacionBD(String user, String pass){
         boolean token = false;
-        if (UsuarioBD.getInstancia().find(user).getPassword().matches(pass)){
+        try{
+            if (UsuarioBD.getInstancia().find(user).getPassword().matches(pass)){
                 token = true;
+            }
+        }catch (Exception e){
+
         }
         return token;
     }

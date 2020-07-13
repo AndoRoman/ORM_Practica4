@@ -6,9 +6,12 @@ import Servicios.Coleccion_por_Defecto;
 import Servicios.ProductoBD;
 import Servicios.VentasBD;
 import io.javalin.Javalin;
+import io.javalin.http.InternalServerErrorResponse;
+import io.javalin.http.UnauthorizedResponse;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +145,25 @@ public class ControladorPlantilla {
                 });
             });
         });
+
+
+        //MANEJADOR DE EXCEPCIONES
+        app.exception(FileNotFoundException.class, (e, ctx) -> {
+            ctx.status(404);
+        }).error(404, ctx -> {
+            ctx.render("/Plantilla/AdminPag/dist/404.html");
+        });
+        app.exception(InternalServerErrorResponse.class, (e, ctx) -> {
+            ctx.status(500);
+        }).error(500, ctx -> {
+            ctx.render("/Plantilla/AdminPag/dist/500.html");
+        });
+        app.exception(UnauthorizedResponse.class, (e, ctx) -> {
+           ctx.status(401);
+        }).error(401, ctx -> {
+            ctx.render("/Plantilla/AdminPag/dist/401.html");
+        });
+
 
     }
 

@@ -53,7 +53,7 @@ public class ControladorCarrito {
                 }
                 ctx.render("/HTML/CompraDONE.html", view);
             } else {
-                ctx.redirect("/Login.html");
+                ctx.redirect("/LoginPag");
             }
         });
 
