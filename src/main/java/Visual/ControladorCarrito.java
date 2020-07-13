@@ -25,7 +25,7 @@ public class ControladorCarrito {
         });
 
         //BOTON COMPRAR!
-        app.get("/comprar", ctx -> {
+        app.post("/comprar", ctx -> {
             String user = ctx.sessionAttribute("usuario");
             System.out.println(user);
             Map<String, Object> view = new HashMap<>();
