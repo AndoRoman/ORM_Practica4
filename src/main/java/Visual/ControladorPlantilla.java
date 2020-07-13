@@ -65,13 +65,41 @@ public class ControladorPlantilla {
                 });
 
                 //AGREGAR PRODUCTO
-                app.post("agregarProduct", ctx -> {
-                    String NombreProducto = ctx.formParam("name");
+                app.post("/agregarProduct", ctx -> {
+                    String NombreProducto = ctx.formParam("producto_nombre");
                     //INSTANCIA
                     servicioCarrito.AgregarAlCarro(NombreProducto, ctx.sessionAttribute("usuario"));
-                    ctx.result("El producto ha sido anadido al carrito");
+                    ctx.redirect("/Carrito.html");
                 });
             });
+
+
+            //VISTA DE DESCRIPCION DE PRODUCTO
+            app.post("/Producto", ctx -> {
+                String id_string = ctx.formParam("idProducto");
+                int id = Integer.parseInt(id_string);
+
+                Carrito auxcart = servicio.getCarro(ctx.sessionAttribute("usuario"));
+                String cant = String.valueOf(auxcart.getListaProductos().size());
+
+                Map<String, Object> modelo = new HashMap<>();
+                Producto aux = ProductoBD.getInstancia().find(id);
+                modelo.put("producto", aux);
+                modelo.put("item", "Carrito de Compras(" + cant + ")");
+                try{
+                    if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
+                        modelo.put("admin", "Administración");
+                        modelo.put("adminProduct", "Gestion de Productos");
+                        modelo.put("OUT", "Cerrar Session");
+                    }else {
+                        modelo.put("IN", "Iniciar Session");
+                    }
+                }catch(Exception e){
+
+                }
+                ctx.render("/Plantilla/Producto/index.html", modelo);
+            });
+
 
             //VISTA DEL ADMINISTRADOR
             path("/ListCompras.html", ()-> {

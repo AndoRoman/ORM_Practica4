@@ -17,6 +17,7 @@ public class Main {
             config.addStaticFiles("/Plantilla/Inicio");
             config.addStaticFiles("/Plantilla/AdminPag");
             config.addStaticFiles("/Plantilla/AdminPag/dist");
+            config.addStaticFiles("/Plantilla/Producto/css");
         }).start(7000);
 
 
