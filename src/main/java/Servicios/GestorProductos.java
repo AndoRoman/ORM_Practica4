@@ -12,15 +12,14 @@ public class GestorProductos {
     public GestorProductos(Javalin app){
 
         //BOTÓN AGREGAR y MODIFICAR
-        app.post("/agree", ctx -> {
-            int idProducto = Integer.parseInt(ctx.formParam("idProducto"));
+        app.post("/agregar", ctx -> {
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
 
             boolean toke = false;
             for (Producto aux: servicio.getListProduct()){
                 if (aux.getNombre().matches(producto)) {
-                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(idProducto, producto, precio));
+                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(producto, precio));
                     toke = true;
                 }
             }
@@ -64,7 +63,7 @@ public class GestorProductos {
         return ok;
     }
 
-    public boolean modificarProducto(int id, String producto, String precio){
+    public boolean modificarProducto(String producto, String precio){
         boolean ok = false;
         for (Producto i : servicio.getListProduct()) {
             if(i.getNombre().matches(producto)){
