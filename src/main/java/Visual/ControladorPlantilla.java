@@ -49,14 +49,16 @@ public class ControladorPlantilla {
                     modelo.put("item", "Carrito de Compras(" + cant + ")");
                     try{
                         if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
-                            modelo.put("admin", "Lista de Compras Realizadas");
+                            modelo.put("admin", "Administración");
                             modelo.put("adminProduct", "Gestion de Productos");
                             modelo.put("OUT", "Cerrar Session");
+                        }else {
+                            modelo.put("IN", "Iniciar Session");
                         }
                     }catch(Exception e){
 
                     }
-                    ctx.render("/HTML/Productos.html", modelo);
+                    ctx.render("/Plantilla/Inicio/index.html", modelo);
                 });
 
                 //AGREGAR PRODUCTO

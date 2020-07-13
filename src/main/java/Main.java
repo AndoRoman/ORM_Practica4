@@ -15,6 +15,9 @@ public class Main {
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/HTML");
             config.addStaticFiles("/HTML/Login.html");
+            config.addStaticFiles("/Plantilla/Inicio");
+            config.addStaticFiles("/Plantilla/AdminPag");
+            config.addStaticFiles("/Plantilla/AdminPag/dist");
         }).start(7000);
 
 

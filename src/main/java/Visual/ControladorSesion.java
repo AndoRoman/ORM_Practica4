@@ -13,14 +13,8 @@ public class ControladorSesion {
     public void control(Javalin app){
 
         app.get("/LoginOUT", ctx -> {
-
-            //DESENCRIPTANDO
-            BasicIntegerNumberEncryptor numberEncryptor = new BasicIntegerNumberEncryptor();
-            numberEncryptor.setPassword("secreto");
-            //HASH Limpio
-            BigInteger plainLogin_hash = numberEncryptor.decrypt(new BigInteger(ctx.cookie("userssession")));
-            //Eliminando Datos de sesion en BD
-            ValidacionSesionBD.getInstance().eliminar(plainLogin_hash.intValue());
+            String userssession = ctx.cookie("userssession");
+            LimpiezaBD(userssession);
             //Eliminando Cookies
             ctx.removeCookie("userssession");
             ctx.removeCookie("usuario");
@@ -30,9 +24,16 @@ public class ControladorSesion {
 
         //VERIFICANDO SESSIÓN
         app.get("/Login.html", ctx -> {
+            String user = null;
+            String pass= null;
+
             if(ctx.cookie("userssession") != null){
-                String user = ValidadoCookie(ctx.cookie("userssession")).getUsuario();
-                String pass = ValidadoCookie(ctx.cookie("userssession")).getPassword();
+                try {
+                     user = ValidadoCookie(ctx.cookie("userssession")).getUsuario();
+                     pass = ValidadoCookie(ctx.cookie("userssession")).getPassword();
+                }catch (Exception e){
+                    ctx.redirect("/");
+                }
                 if(autenticacionBD(user, pass)) {
                     ctx.sessionAttribute("usuario", user);
                     ctx.redirect("/ListCompras.html");
@@ -82,6 +83,16 @@ public class ControladorSesion {
         });
     }
 
+    //Funcion para eliminar la tabla de validación del usuario
+    private void LimpiezaBD(String userssession) {
+        //DESENCRIPTANDO
+        BasicIntegerNumberEncryptor numberEncryptor = new BasicIntegerNumberEncryptor();
+        numberEncryptor.setPassword("secreto");
+        //HASH Limpio
+        BigInteger plainLogin_hash = numberEncryptor.decrypt(new BigInteger(userssession));
+        //Eliminando Datos de sesion en BD
+        ValidacionSesionBD.getInstance().eliminar(plainLogin_hash.intValue());
+    }
 
 
     private boolean autenticacionBD(String user, String pass){
@@ -103,10 +114,14 @@ public class ControladorSesion {
         //Busco en la BD
         ValidacionSesion hash_user = ValidacionSesionBD.getInstance().find(plainLogin_hash.intValue());
         //extraigo usuario dueño del hash
-        String casi_user = hash_user.getIduser();
-        //Usuario completo
-        validation = UsuarioBD.getInstancia().find(casi_user);
+        try {
+            String casi_user = hash_user.getIduser();
+            //Usuario completo
+            validation = UsuarioBD.getInstancia().find(casi_user);
+        }catch (Exception e){
+            LimpiezaBD(userssession);
 
+        }
         return validation;
     }
 
