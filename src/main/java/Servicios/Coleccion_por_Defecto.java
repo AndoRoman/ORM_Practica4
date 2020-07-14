@@ -19,15 +19,8 @@ public class Coleccion_por_Defecto {
 
         //reñenando lista de productos por defecto en el carrito
 
-        indexes.add(new Producto(1, "ticket",new BigDecimal("000")));
-
-        //Añadiendo Productos
-        listProduct.add(new Producto(listProduct.size() + 1, "ticket",new BigDecimal("000")));
-        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Maiz", new BigDecimal("50")));
-        listProduct.add(new Producto(listProduct.size() + 1, "Lata de Salsa", new BigDecimal("75")));
-        listProduct.add(new Producto(listProduct.size()+ 1, "Espaguetis", new BigDecimal("30")));
-        listProduct.add(new Producto(listProduct.size()+ 1, "Pollo", new BigDecimal("38")));
-        listProduct.add(new Producto(listProduct.size() + 1, "Producto de Prueba",new BigDecimal("1234")));
+        //Añadiendo Producto
+        listProduct.add(new Producto(1, "ProductoPrueba",new BigDecimal("000"), "Este es una producto bueno, bonito y barato"));
 
     }
 
@@ -70,6 +63,7 @@ public class Coleccion_por_Defecto {
             }
         }
         if(carro==null){
+            clearIndexes();
             carro = new Carrito(listCarros.size() + 1, indexes, user);
 
             listCarros.add(carro);

@@ -1,9 +1,15 @@
 package Servicios;
 
+import Encapsulacion.Comentario;
+import Encapsulacion.Foto;
 import Encapsulacion.Producto;
 import io.javalin.Javalin;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 public class GestorProductos {
 
@@ -15,6 +21,23 @@ public class GestorProductos {
         app.post("/agregar", ctx -> {
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
+            String decri = ctx.formParam("decripcionProducto");
+
+            //Comentario
+
+            //foto
+            /*
+            List<Foto> fotoList = new ArrayList<>();
+            ctx.uploadedFiles("foto").forEach(uploadedFile -> {
+                try {
+                    byte[] bytes = uploadedFile.getContent().readAllBytes();
+                    String encodedString = Base64.getEncoder().encodeToString(bytes);
+                    Foto foto = new Foto(uploadedFile.getFilename(), uploadedFile.getContentType(), encodedString);
+                    fotoList.add(foto);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });*/
 
             boolean toke = false;
             for (Producto aux: servicio.getListProduct()){
@@ -24,7 +47,7 @@ public class GestorProductos {
                 }
             }
             if(!toke){
-                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio));
+                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri));
             }
 
             ctx.redirect("/");
@@ -37,9 +60,12 @@ public class GestorProductos {
         });
 
 
+
+
     }
-    public boolean agregarProduct(String producto, String precio){
-        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio));
+    public boolean agregarProduct(String producto, String precio, String decri){
+
+        Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio), decri);
         servicio.getListProduct().add(aux);
         //AGREGANDO A BD
         ProductoBD.getInstancia().crear(aux);

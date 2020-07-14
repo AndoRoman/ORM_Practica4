@@ -1,3 +1,4 @@
+import Servicios.GestorComentarios;
 import Servicios.arranque_BD;
 import Servicios.GestorProductos;
 import Visual.ControladorCarrito;
@@ -28,5 +29,7 @@ public class Main {
         new GestorProductos(app);
         //Manejador del Carrito
         new ControladorCarrito().ManejadorCarro(app);
+        //comentarios
+        new GestorComentarios(app);
     }
 }

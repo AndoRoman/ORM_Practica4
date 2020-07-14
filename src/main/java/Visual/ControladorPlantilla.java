@@ -91,6 +91,7 @@ public class ControladorPlantilla {
                         modelo.put("admin", "Administración");
                         modelo.put("adminProduct", "Gestion de Productos");
                         modelo.put("OUT", "Cerrar Session");
+                        modelo.put("usuario", "admin");
                     }else {
                         modelo.put("IN", "Iniciar Session");
                     }

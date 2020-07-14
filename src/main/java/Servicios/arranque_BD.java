@@ -4,6 +4,7 @@ import Encapsulacion.Producto;
 import Encapsulacion.Usuario;
 import org.h2.tools.Server;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class arranque_BD {
@@ -28,11 +29,9 @@ public class arranque_BD {
 
         //Rellenando Base de Datos
 
-        //Productos
-        for (Producto p: Coleccion_por_Defecto.getInstancia().getListProduct())
-        {
-            ProductoBD.getInstancia().crear(new Producto(p.getId(), p.getNombre(), p.getPrecio()));
-        }
+        //Producto
+        ProductoBD.getInstancia().crear(new Producto(1, "Producto de Prueba",new BigDecimal("000"), "Este es un producto bueno, bonito y barato. Como te gustan"));
+
         //Usuario
         UsuarioBD.getInstancia().crear(new Usuario("admin", "admin", "admin"));
 
