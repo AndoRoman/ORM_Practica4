@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Inventario</title>
@@ -8,38 +8,77 @@
 
 </head>
 <body>
-    <a class="badge badge-dark" href="/" role="button">Inicio</a>
-    <a class="badge badge-dark" href="/Login.html" role="button">Login</a>
-    <a class="badge badge-dark" href="/Carrito.html" role="button" th:text="${item}"></a>
-    <a class="badge badge-dark" href="/ListCompras.html" role="button" th:text="${admin}"></a>
-    <a class="badge badge-dark" href="/Gestor.html" role="button" th:text="${adminProduct}"></a>
-    <a class="badge badge-dark" href="/LoginOUT" role="button" th:text="${OUT}"></a>
-    <h2 class="text-center">Productos Vendidos</h2>
-    <div class="container">
-        <table class="table table-bordered" th:each="tabla : ${ventasProductos}">
-            <thead class="thead-dark">
-            <tr>
-                <th class="align-middle" scope="row" colspan="2" th:text="${tabla.nombreCliente}">Manolo</th>
-                <th class="align-middle" scope="row" colspan="2" th:text="${tabla.fechaCompra}">14/06/2020</th>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Jack Frost</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Inicio
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Carrito.html" th:text="${item}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ListCompras.html" th:text="${admin}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Gestor" th:text="${adminProduct}">Gestionamiento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LoginPag" th:text="${IN}">Iniciar Sesion </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LoginOUT" th:text="${OUT}">Cerrar Sesion </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr>
+    <hr>
+    <hr>
+    <hr>
+    <div class="card card-outline-secondary mb-5">
+        <h2 class="text-center">Productos Vendidos</h2>
+        <div class="container">
+            <table class="table table-bordered" th:each="tabla : ${ventasProductos}">
+                <thead class="thead-dark">
+                <tr>
+                    <th class="align-middle" scope="row" colspan="2" th:text="${tabla.nombreCliente}">Manolo</th>
+                    <th class="align-middle" scope="row" colspan="2" th:text="${tabla.fechaCompra}">14/06/2020</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <th class="align-middle"; scope="col">Nombre del Producto</th>
-            <th class="align-middle"; scope="col">Precio ($RD)</th>
-            <th class="align-middle"; scope="col">Cantidad</th>
-            <th class="align-middle"; scope="col">Total ($RD)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th class="align-middle"; scope="col">Nombre del Producto</th>
+                <th class="align-middle"; scope="col">Precio ($RD)</th>
+                <th class="align-middle"; scope="col">Cantidad</th>
+                <th class="align-middle"; scope="col">Total ($RD)</th>
 
-            <tr th:each="Producto : ${tabla.listaProductos}">
-                <td class="align-middle"; th:text="${Producto.producto.nombre}">TEST</td>
-                <td class="align-middle"; th:text="${Producto.producto.precio}">1000</td>
-                <td class="align-middle"; th:text="${Producto.cantidad}"></td>
-                <!-- <td class="align-middle"; th:text="${Producto.monto}"></td> -->
-            </tr>
-            </tbody>
-            <tfoot th:text="${tabla.Precio_Total}"></tfoot>
-        </table>
+                <tr th:each="Producto : ${tabla.listaProductos}">
+                    <td class="align-middle"; th:text="${Producto.producto.nombre}">TEST</td>
+                    <td class="align-middle"; th:text="${Producto.producto.precio}">1000</td>
+                    <td class="align-middle"; th:text="${Producto.cantidad}"></td>
+                    <!-- <td class="align-middle"; th:text="${Producto.monto}"></td> -->
+                </tr>
+                </tbody>
+                <tfoot th:text="${tabla.Precio_Total}"></tfoot>
+            </table>
+        </div>
     </div>
-
 </body>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Ando Román 2020</p>
+    </div>
+    <!-- /.container -->
+</footer>
 </html>

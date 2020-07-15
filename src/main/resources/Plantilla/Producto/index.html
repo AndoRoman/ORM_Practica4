@@ -40,7 +40,7 @@
             <a class="nav-link" href="/ListCompras.html" th:text="${admin}"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Gestor.html" th:text="${adminProduct}">Gestionamiento</a>
+            <a class="nav-link" href="/Gestor" th:text="${adminProduct}">Gestionamiento</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="/LoginPag" th:text="${IN}">Iniciar Sesion </a>
@@ -99,9 +99,11 @@
             <div>
               <form class="form-edit-create" id="comentarioproducto" method="post" action="/agregarcomentario">
                 <h6 style="font-style: normal" class="ml-4">Comentar</h6>
-                <textarea id="comentario" class="ml-5 mb-2" rows="5" cols="75" name="comentario" placeholder="   Escribir Comentario del Producto   " required></textarea>
+                <div class="form-group card-body">
+                  <textarea id="comentario" class="form-control" name="comentario" placeholder="   Escribir Comentario del Producto   " required></textarea>
+                </div>
                 <input type="hidden" th:value="${producto.id}" name="id">
-                <div class="ml-5 mb-2">
+                <div class="ml-3 mb-3">
                   <button type="submit" class="btn btn-primary"> Enviar Comentario</button>
                 </div>
               </form>

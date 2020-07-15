@@ -44,7 +44,7 @@
             <a class="nav-link" href="/ListCompras.html" th:text="${admin}"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Gestor.html" th:text="${adminProduct}">Gestionamiento</a>
+            <a class="nav-link" href="/Gestor" th:text="${adminProduct}">Gestion de Productos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="/LoginPag" th:text="${IN}">Iniciar Sesion </a>
@@ -116,7 +116,8 @@
                     <button class="btn card-title font-weight-bold btn-link" type="submit" th:text="${productos.nombre}"></button>
                     <br>
                     <h7 th:text="${productos.precio} + 'RD$'"></h7>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    <p class="card-text" th:text="${productos.descripcion}"></p>
+                    <small th:text="${productos.id}"></small>
                 </form>
               </div>
               <div class="card-footer">

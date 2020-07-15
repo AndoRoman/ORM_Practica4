@@ -1,5 +1,6 @@
 package Servicios;
 
+import Encapsulacion.Carrito;
 import Encapsulacion.Comentario;
 import Encapsulacion.Foto;
 import Encapsulacion.Producto;
@@ -7,9 +8,7 @@ import io.javalin.Javalin;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 public class GestorProductos {
 
@@ -17,7 +16,7 @@ public class GestorProductos {
 
     public GestorProductos(Javalin app){
 
-        //BOTÓN AGREGAR y MODIFICAR
+        //BOTÓN AGREGAR
         app.post("/agregar", ctx -> {
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
@@ -26,7 +25,6 @@ public class GestorProductos {
             //Comentario
 
             //foto
-            /*
             List<Foto> fotoList = new ArrayList<>();
             ctx.uploadedFiles("foto").forEach(uploadedFile -> {
                 try {
@@ -37,26 +35,65 @@ public class GestorProductos {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            });*/
+            });
 
-            boolean toke = false;
-            for (Producto aux: servicio.getListProduct()){
-                if (aux.getNombre().matches(producto)) {
-                    System.out.println("El Producto: " + producto + " Ha sido Modificado: " + modificarProducto(producto, precio));
-                    toke = true;
-                }
-            }
-            if(!toke){
-                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri));
-            }
+            System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri));
+
 
             ctx.redirect("/");
         });
+
+        //BOTÓN modificar
+        app.post("/modificar", ctx -> {
+            boolean token = false;
+            String id_producto = ctx.formParam("IDproductoModificar");
+
+            String precio = null;
+            String decri = null;
+            String nombre = null;
+
+
+            try{
+                precio = ctx.formParam("precioProducto");
+                decri = ctx.formParam("descri");
+                nombre = ctx.formParam("NombreProducto");
+
+                if(precio != null){
+                    token = true;
+                }
+            }catch (Exception e){
+                token = false;
+            }
+
+            if(token){
+                System.out.println("El Producto: " + nombre + " Ha sido Modificado: " + modificarProducto(id_producto, precio, nombre, decri));
+                ctx.redirect("/");
+            }else{
+
+                if(ctx.sessionAttribute("usuario") == null){
+                    ctx.render("/Plantilla/AdminPag/dist/401.html");
+                }
+                Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
+                Map<String, Object> view = new HashMap<>();
+                view.put("item", "Carrito de Compras(" + aux.getListaProductos().size() + ")");
+                view.put("admin", "Lista de Compras Realizadas");
+                view.put("adminProduct", "Gestion de Productos");
+                view.put("OUT", "Cerrar Session");
+                view.put("listaProductos", servicio.getListProduct());
+                view.put("productos", ProductoBD.getInstancia().find(Integer.parseInt(id_producto)));
+                view.put("boton", "Modificar");
+
+                ctx.render("/HTML/Gestor.html", view);
+
+            }
+
+        });
+
         //BOTÓN ELIMINAR
         app.post("/delete", ctx -> {
             String producto = ctx.formParam("NombreProductoEliminar");
             System.out.println("Producto: "+ producto + " Ha sido Eliminado: "+eliminar(producto));
-            ctx.redirect("/");
+            ctx.redirect("/Gestor");
         });
 
 
@@ -89,12 +126,13 @@ public class GestorProductos {
         return ok;
     }
 
-    public boolean modificarProducto(String producto, String precio){
+    public boolean modificarProducto(String id, String precio, String nombre, String descripcion){
         boolean ok = false;
         for (Producto i : servicio.getListProduct()) {
-            if(i.getNombre().matches(producto)){
+            if(i.getId() == Integer.parseInt(id)) {
+                i.setNombre(nombre);
                 i.setPrecio(new BigDecimal(precio));
-
+                i.setDescripcion(descripcion);
                 //ACTUALIZANDO EN BD
                 ProductoBD.getInstancia().editar(i);
                 ok = true;

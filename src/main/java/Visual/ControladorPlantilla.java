@@ -107,7 +107,9 @@ public class ControladorPlantilla {
                 get("/", ctx -> {
                     //Dando identidad al usuario
                     if(ctx.sessionAttribute("usuario") == null){
-                        ctx.sessionAttribute("usuario",ctx.cookie("JSESSIONID"));
+                        ctx.render("/Plantilla/AdminPag/dist/401.html");
+                        ctx.cookie("usuario",ctx.cookie("JSESSIONID"));
+                        ctx.sessionAttribute("usuario" ,ctx.cookie("JSESSIONID"));
                     }
                     Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
                     Map<String, Object> view = new HashMap<>();
@@ -125,12 +127,13 @@ public class ControladorPlantilla {
 
 
             //VISTA DE MODIFICACION DE PRODUCTOS
-            path("/HTML/Gestor.html", ()-> {
+            path("/Gestor", ()-> {
                 get("/", ctx -> {
                     //Dando identidad al usuario
-                    if(ctx.sessionAttribute("usuario") == null){
-                        ctx.sessionAttribute("usuario",ctx.cookie("JSESSIONID"));
-
+                    if(ctx.sessionAttribute("usuario") == null || ctx.cookie("usuario") == null){
+                        ctx.render("/Plantilla/AdminPag/dist/401.html");
+                        ctx.cookie("usuario",ctx.cookie("JSESSIONID"));
+                        ctx.sessionAttribute("usuario" ,ctx.cookie("JSESSIONID"));
                     }
                     Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
                     Map<String, Object> view = new HashMap<>();
@@ -140,6 +143,7 @@ public class ControladorPlantilla {
                         view.put("adminProduct", "Gestion de Productos");
                         view.put("OUT", "Cerrar Session");
                         view.put("listaProductos", servicio.getListProduct());
+                        view.put("boton", "Buscar Producto");
                     }
                     ctx.render("/HTML/Gestor.html", view);
                 });
