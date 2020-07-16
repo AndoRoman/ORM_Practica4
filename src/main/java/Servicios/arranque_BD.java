@@ -42,8 +42,15 @@ public class arranque_BD {
         platano.setPrecio(BigDecimal.valueOf(10.00));
         platano.setDescripcion("El Real Platano Compai.... de 20 Pulgada");
         ProductoBD.getInstancia().crear(platano);
-        ProductoBD.getInstancia().crear(new Producto(1, "Producto de Prueba",new BigDecimal("000"), "Este es un producto bueno, bonito y barato. Como te gustan"));
 
+        ProductoBD.getInstancia().crear(new Producto(1, "Producto de Prueba",new BigDecimal("000"), "Este es un producto bueno, bonito y barato. Como te gustan"));
+        ProductoBD.getInstancia().crear(new Producto(2, "Producto de Prueba2",new BigDecimal("000"), "Este es un producto bueno, bonito y barato."));
+        ProductoBD.getInstancia().crear(new Producto(3, "Producto de Prueba3",new BigDecimal("000"), "Este es un producto bueno"));
+        ProductoBD.getInstancia().crear(new Producto(4, "Salami",new BigDecimal("250"), "DON PEDRO"));
+        ProductoBD.getInstancia().crear(new Producto(5, "Manzana",new BigDecimal("50"), "Roja de Buena Calidad"));
+        ProductoBD.getInstancia().crear(new Producto(6, "Espaguetis",new BigDecimal("25"), "MILANO"));
+        ProductoBD.getInstancia().crear(new Producto(7, "Arroz",new BigDecimal("50"), "Arroz Blanco"));
+        ProductoBD.getInstancia().crear(new Producto(8, "Tacos",new BigDecimal("75"), "MRIA"));
         //Foto
 /*        BufferedImage bImage = ImageIO.read(new File("/IMG/supermercado.jpg"));
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

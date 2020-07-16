@@ -44,13 +44,30 @@ public class ControladorPlantilla {
                         ctx.cookie("usuario",ctx.cookie("JSESSIONID"));
                         ctx.sessionAttribute("usuario" ,ctx.cookie("JSESSIONID"));
                     }
-                    List<Producto> listaProductos = ProductoBD.getInstancia().findAll();
                     Carrito aux = servicio.getCarro(ctx.sessionAttribute("usuario"));
                     String cant = String.valueOf(aux.getListaProductos().size());
                     Map<String, Object> modelo = new HashMap<>();
                     modelo.put("titulo", "Bienvenido");
-                    modelo.put("listaProducto", listaProductos);
                     modelo.put("item", "Carrito de Compras(" + cant + ")");
+
+                    //PAGINACION
+                    int paginacion = 1;
+
+                    if(ctx.queryParam("pagina")==null){
+                        paginacion = 1;
+
+                    }else if (Integer.parseInt(ctx.queryParam("pagina")) == 0) {
+
+                        paginacion = 1;
+
+                    }else{
+                        paginacion = Integer.parseInt(ctx.queryParam("pagina"));
+                    }
+                    List<Producto> listaProductos = ProductoBD.getInstancia().productosXpagina(paginacion);
+                    modelo.put("pagina", paginacion);
+                    modelo.put("cantidad_pagina", (int) Math.ceil((double) ProductoBD.getInstancia().findAll().size() / 10));
+                    modelo.put("listaProducto", listaProductos);
+                    //
                     try{
                         if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
                             modelo.put("admin", "Administración");
@@ -85,12 +102,7 @@ public class ControladorPlantilla {
 
                 Map<String, Object> modelo = new HashMap<>();
                 Producto aux = ProductoBD.getInstancia().find(id);
-                Foto auxfoto= null;
-                for (Foto f: aux.getProductFoto()) {
-                    auxfoto = f;
-                    break;
-                }
-                modelo.put("foto", auxfoto);
+                modelo.put("LasFOTOS", aux.getProductFoto());
                 modelo.put("producto", aux);
                 modelo.put("comentarios", ComentarioBD.getInstance().getComentarios(aux.getId()));
                 modelo.put("item", "Carrito de Compras(" + cant + ")");

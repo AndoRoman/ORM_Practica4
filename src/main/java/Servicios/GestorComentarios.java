@@ -25,7 +25,7 @@ public class GestorComentarios {
 
             Carrito auxcart =   Coleccion_por_Defecto.getInstancia().getCarro(ctx.sessionAttribute("usuario"));
             String cant = String.valueOf(auxcart.getListaProductos().size());
-
+            modelo.put("LasFOTOS", aux.getProductFoto());
             modelo.put("producto", aux);
             modelo.put("comentarios", ComentarioBD.getInstance().getComentarios(aux.getId()));
             modelo.put("item", "Carrito de Compras(" + cant + ")");
@@ -58,7 +58,7 @@ public class GestorComentarios {
 
             Carrito auxcart = Coleccion_por_Defecto.getInstancia().getCarro(ctx.sessionAttribute("usuario"));
             String cant = String.valueOf(auxcart.getListaProductos().size());
-
+            modelo.put("LasFOTOS", aux.getProductFoto());
             modelo.put("producto", aux);
             modelo.put("comentarios", ComentarioBD.getInstance().getComentarios(aux.getId()));
             modelo.put("item", "Carrito de Compras(" + cant + ")");

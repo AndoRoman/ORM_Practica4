@@ -64,7 +64,12 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" th:src="@{'data:' + ${foto.tipo} + '; base64,' + ${foto.lafoto}}" alt="">
+            <th:block th:each="foto, cont : ${LasFOTOS}">
+              <div th:class="${cont.first} ? 'carousel-item active' : 'carousel-item'">
+                <img th:src="@{'data:' + ${foto.tipo} + '; base64,' + ${foto.lafoto}}" class="d-block w-100 img-responsive img-thumbnail mb-2" alt="#">
+              </div>
+            </th:block>>
+            <!-- <img class="card-img-top img-fluid" th:src="@{'data:' + ${foto.tipo} + '; base64,' + ${foto.lafoto}}" alt=""> -->
             <div class="card-body">
               <h3 class="card-title" th:text="${producto.nombre}" ></h3>
               <h4 th:text="${producto.precio} + 'RD$'"></h4>

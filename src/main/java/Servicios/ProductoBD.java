@@ -30,13 +30,6 @@ public class ProductoBD extends GestorBD<Producto>{
         return P;
     }
 
-
-    public List<Producto> consultaNativa(){
-        EntityManager em = getEntityManager();
-        Query query = em.createNativeQuery("select * from Producto ", Producto.class);
-        return (List<Producto>) query.getResultList();
-    }
-
     public List<Producto> productosXpagina(int pagina) {
 
         EntityManager entityManager = getEntityManager();
@@ -47,6 +40,13 @@ public class ProductoBD extends GestorBD<Producto>{
 
         return productoList;
 
+    }
+
+    public int cantProducto(){
+        EntityManager entityManager = getEntityManager();
+        String countQ = "SELECT COUNT(P.id) FROM Producto P";
+        Query countQuery = entityManager.createQuery(countQ);//consulta JQPL
+        return ((Number) countQuery.getSingleResult()).intValue();
     }
 
 }
