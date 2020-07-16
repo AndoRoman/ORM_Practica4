@@ -17,26 +17,32 @@ public class GestorProductos {
 
         //BOTÓN AGREGAR
         app.post("/agregar", ctx -> {
-            String producto = ctx.formParam("NombreProducto");
-            String precio = ctx.formParam("precioProducto");
-            String decri = ctx.formParam("descripcion");
 
-            //Comentario
-
-            //foto
             List<Foto> fotoList = new ArrayList<>();
-            ctx.uploadedFiles("foto").forEach(uploadedFile -> {
+            ctx.uploadedFiles("lasfotos").forEach(uploadedFile -> {
+                System.out.println("\n CARGANDO IMAGEN!! \n");
                 try {
                     byte[] bytes = uploadedFile.getContent().readAllBytes();
                     String encodedString = Base64.getEncoder().encodeToString(bytes);
-                    Foto foto = new Foto(producto, uploadedFile.getContentType(), encodedString);
+                    Foto foto = new Foto(uploadedFile.getFilename(), uploadedFile.getContentType(), encodedString);
                     fotoList.add(foto);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
 
-            System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri, fotoList));
+            String producto = ctx.formParam("NombreProducto");
+            String precio = ctx.formParam("precioProducto");
+            String decri = ctx.formParam("descripcion");
+
+            //foto
+
+
+            if(fotoList.size() > 0){
+                System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri, fotoList));
+            }else {
+                System.out.println("PRODUCTO NO CREADOO!!!!!!!!!");
+            }
 
 
             ctx.redirect("/");

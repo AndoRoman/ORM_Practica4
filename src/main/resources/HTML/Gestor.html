@@ -53,7 +53,7 @@
             <div class="card-body">
                 <h4 class="text-left"><strong>Agregar Nuevo Productos</strong></h4>
                 <span class="m">
-                    <form method="post" action="/agregar">
+                    <form method="post" action="/agregar" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nom1">Nombre del Producto</label>
                             <input type="text" class="form-control" id="nom1" name="NombreProducto" required>
@@ -67,10 +67,10 @@
                             <textarea class="form-control" name="descripcion" id="coment1" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="lafoto">Imagen del Producto</label>
+                            <label for="lasfotos">Imagen del Producto</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
-                                    <input type="file" id="lafoto" class="form-control" name="foto" accept="image/x-png,image/jpeg,image/jpg,image/svg" multiple required>
+                                    <input type="file" id="lasfotos" class="form-control" name="lasfotos" multiple required>
                                 </div>
                             </div>
                         </div>

@@ -37,7 +37,13 @@ public class arranque_BD {
         //Rellenando Base de Datos
 
         //Producto
+        Producto platano = new Producto();
+        platano.setNombre("Platano");
+        platano.setPrecio(BigDecimal.valueOf(10.00));
+        platano.setDescripcion("El Real Platano Compai.... de 20 Pulgada");
+        ProductoBD.getInstancia().crear(platano);
         ProductoBD.getInstancia().crear(new Producto(1, "Producto de Prueba",new BigDecimal("000"), "Este es un producto bueno, bonito y barato. Como te gustan"));
+
         //Foto
 /*        BufferedImage bImage = ImageIO.read(new File("/IMG/supermercado.jpg"));
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

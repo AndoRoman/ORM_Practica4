@@ -85,8 +85,12 @@ public class ControladorPlantilla {
 
                 Map<String, Object> modelo = new HashMap<>();
                 Producto aux = ProductoBD.getInstancia().find(id);
-                Foto auxFoto = null;
-
+                Foto auxfoto= null;
+                for (Foto f: aux.getProductFoto()) {
+                    auxfoto = f;
+                    break;
+                }
+                modelo.put("foto", auxfoto);
                 modelo.put("producto", aux);
                 modelo.put("comentarios", ComentarioBD.getInstance().getComentarios(aux.getId()));
                 modelo.put("item", "Carrito de Compras(" + cant + ")");
