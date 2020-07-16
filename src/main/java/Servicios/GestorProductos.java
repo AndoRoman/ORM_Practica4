@@ -1,7 +1,6 @@
 package Servicios;
 
 import Encapsulacion.Carrito;
-import Encapsulacion.Comentario;
 import Encapsulacion.Foto;
 import Encapsulacion.Producto;
 import io.javalin.Javalin;
@@ -20,7 +19,7 @@ public class GestorProductos {
         app.post("/agregar", ctx -> {
             String producto = ctx.formParam("NombreProducto");
             String precio = ctx.formParam("precioProducto");
-            String decri = ctx.formParam("decripcionProducto");
+            String decri = ctx.formParam("descripcion");
 
             //Comentario
 
@@ -30,14 +29,14 @@ public class GestorProductos {
                 try {
                     byte[] bytes = uploadedFile.getContent().readAllBytes();
                     String encodedString = Base64.getEncoder().encodeToString(bytes);
-                    Foto foto = new Foto(uploadedFile.getFilename(), uploadedFile.getContentType(), encodedString);
+                    Foto foto = new Foto(producto, uploadedFile.getContentType(), encodedString);
                     fotoList.add(foto);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
 
-            System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri));
+            System.out.println("El Producto: " + producto + " Ha sido Agregado: " + agregarProduct(producto, precio, decri, fotoList));
 
 
             ctx.redirect("/");
@@ -100,12 +99,16 @@ public class GestorProductos {
 
 
     }
-    public boolean agregarProduct(String producto, String precio, String decri){
+    public boolean agregarProduct(String producto, String precio, String decri, List<Foto> fotos){
 
         Producto aux = new Producto(producto.hashCode(), producto, new BigDecimal(precio), decri);
         servicio.getListProduct().add(aux);
         //AGREGANDO A BD
         ProductoBD.getInstancia().crear(aux);
+
+        for (Foto f: fotos) {
+            FotoBD.getInstancia().agregarFoto(f.getNombreFoto(),f.getTipo(),f.getLafoto(), String.valueOf(aux.getId()));
+        }
 
         return true;
     }

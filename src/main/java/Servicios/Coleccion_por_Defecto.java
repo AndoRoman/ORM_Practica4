@@ -1,8 +1,6 @@
 package Servicios;
 
-import Encapsulacion.Carrito;
-import Encapsulacion.Producto;
-import Encapsulacion.Ventas;
+import Encapsulacion.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,14 +12,27 @@ public class Coleccion_por_Defecto {
     private List<Producto> indexes = new ArrayList<>();
     private List<Carrito> listCarros = new ArrayList<>();
     private List<Ventas> listVentas = new ArrayList<>();
+    private List<Foto> listfoto = new ArrayList<>();
+    private List<ventaProducto> listaproductoventa = new ArrayList<>();
+
+    public List<Foto> getListfoto() {
+        return listfoto;
+    }
+
+    public void setListfoto(List<Foto> listfoto) {
+        this.listfoto = listfoto;
+    }
 
     private Coleccion_por_Defecto(){
 
         //reñenando lista de productos por defecto en el carrito
 
         //Añadiendo Producto
-        listProduct.add(new Producto(1, "ProductoPrueba",new BigDecimal("000"), "Este es una producto bueno, bonito y barato"));
-
+        Producto auxproducto = new Producto(1, "ProductoPrueba",new BigDecimal("000"), "Este es una producto bueno, bonito y barato");
+        listProduct.add(auxproducto);
+        //vendidos
+        ProductoVendido auxvendido = new ProductoVendido("ProductoPrueba",new BigDecimal("000"));
+        listaproductoventa.add(new ventaProducto(auxvendido,1));
     }
 
     public static Coleccion_por_Defecto getInstancia(){
@@ -31,6 +42,13 @@ public class Coleccion_por_Defecto {
         return instancia;
     }
 
+    public List<ventaProducto> getListaproductoventa() {
+        return listaproductoventa;
+    }
+
+    public void setListaproductoventa(List<ventaProducto> listaproductoventa) {
+        this.listaproductoventa = listaproductoventa;
+    }
 
     public List<Ventas> getListVentas() {
         return listVentas;

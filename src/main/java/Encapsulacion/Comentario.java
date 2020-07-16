@@ -1,12 +1,17 @@
 package Encapsulacion;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
-@Embeddable
+@Entity
 public class Comentario implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    private Producto producto;
     private String texto;
     private String autor;
     private String fecha;
@@ -15,10 +20,19 @@ public class Comentario implements Serializable {
 
     }
 
-    public Comentario(String texto, String autor, String fecha) {
+    public Comentario(Producto producto, String texto, String autor, String fecha) {
+        this.producto = producto;
         this.texto = texto;
         this.autor = autor;
         this.fecha = fecha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTexto() {

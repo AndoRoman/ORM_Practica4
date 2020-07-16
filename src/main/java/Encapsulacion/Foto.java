@@ -1,33 +1,31 @@
 package Encapsulacion;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Embeddable
 public class Foto implements Serializable {
 
-    private String nombre;
+    private String nombreFoto;
     private String tipo;
     @Lob
     private String lafoto;
 
     public Foto(){
-
     }
 
-    public Foto(String nombre, String tipo, String lafoto) {
-        this.nombre = nombre;
+    public Foto(String nombreFoto, String tipo, String lafoto) {
+        this.nombreFoto = nombreFoto;
         this.tipo = tipo;
         this.lafoto = lafoto;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreFoto() {
+        return nombreFoto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreFoto(String nombre) {
+        this.nombreFoto = nombre;
     }
 
     public String getTipo() {

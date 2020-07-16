@@ -85,7 +85,7 @@
             <div class="card-header">
               Comentarios
             </div>
-            <div class="card-body" th:each="comentario : ${producto.comentarios}">
+            <div class="card-body" th:each="comentario : ${comentarios}">
               <form method="post" action="eliminarcomentario">
                 <p th:text="${comentario.texto}"></p>
                 <small class="text-muted" th:text="'Autor: ' + ${comentario.autor} + ' el ' + ${comentario.fecha}"></small>

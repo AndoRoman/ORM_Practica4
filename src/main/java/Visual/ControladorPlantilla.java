@@ -1,16 +1,17 @@
 package Visual;
 
 import Encapsulacion.Carrito;
+import Encapsulacion.Foto;
 import Encapsulacion.Producto;
-import Servicios.Coleccion_por_Defecto;
-import Servicios.ProductoBD;
-import Servicios.VentasBD;
+import Servicios.*;
 import io.javalin.Javalin;
 import io.javalin.http.InternalServerErrorResponse;
 import io.javalin.http.UnauthorizedResponse;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,18 +85,21 @@ public class ControladorPlantilla {
 
                 Map<String, Object> modelo = new HashMap<>();
                 Producto aux = ProductoBD.getInstancia().find(id);
+                Foto auxFoto = null;
+
                 modelo.put("producto", aux);
+                modelo.put("comentarios", ComentarioBD.getInstance().getComentarios(aux.getId()));
                 modelo.put("item", "Carrito de Compras(" + cant + ")");
-                try{
-                    if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
+                try {
+                    if (ctx.sessionAttribute("usuario").toString().matches("admin")) {
                         modelo.put("admin", "Administración");
                         modelo.put("adminProduct", "Gestion de Productos");
                         modelo.put("OUT", "Cerrar Session");
                         modelo.put("usuario", "admin");
-                    }else {
+                    } else {
                         modelo.put("IN", "Iniciar Session");
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
 
                 }
                 ctx.render("/Plantilla/Producto/index.html", modelo);
@@ -143,6 +147,7 @@ public class ControladorPlantilla {
                         view.put("adminProduct", "Gestion de Productos");
                         view.put("OUT", "Cerrar Session");
                         view.put("listaProductos", servicio.getListProduct());
+                        view.put("fotos", servicio.getListfoto());
                         view.put("boton", "Buscar Producto");
                     }
                     ctx.render("/HTML/Gestor.html", view);

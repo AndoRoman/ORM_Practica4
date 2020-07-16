@@ -34,8 +34,19 @@ public class ProductoBD extends GestorBD<Producto>{
     public List<Producto> consultaNativa(){
         EntityManager em = getEntityManager();
         Query query = em.createNativeQuery("select * from Producto ", Producto.class);
-        List<Producto> lista = query.getResultList();
-        return lista;
+        return (List<Producto>) query.getResultList();
+    }
+
+    public List<Producto> productosXpagina(int pagina) {
+
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createNativeQuery("SELECT * FROM PRODUCTO", Producto.class);
+        query.setFirstResult((pagina - 1) * 10);
+        query.setMaxResults(10);
+        List<Producto> productoList = query.getResultList();
+
+        return productoList;
+
     }
 
 }

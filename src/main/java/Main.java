@@ -6,9 +6,11 @@ import Visual.ControladorPlantilla;
 import Visual.ControladorSesion;
 import io.javalin.Javalin;
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //INICIANDO BASE DE DATOS
         arranque_BD.getInstancia();
@@ -19,6 +21,7 @@ public class Main {
             config.addStaticFiles("/Plantilla/AdminPag");
             config.addStaticFiles("/Plantilla/AdminPag/dist");
             config.addStaticFiles("/Plantilla/Producto/css");
+            config.addStaticFiles("/IMG/logo.svg");
         }).start(7000);
 
 

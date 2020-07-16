@@ -11,6 +11,7 @@
         <class>Encapsulacion.ProductoVendido</class>
         <class>Encapsulacion.ventaProducto</class>
         <class>Encapsulacion.ValidacionSesion</class>
+        <class>Encapsulacion.Comentario</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/ORM_Practica#4" />
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

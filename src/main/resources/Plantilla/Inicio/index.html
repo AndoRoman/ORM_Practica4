@@ -24,7 +24,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand logo-font" href="/">
-        <link type="image/png" href="https://image.flaticon.com/icons/svg/891/891462.svg" width="30" height="30" alt="logo"> Jack Frost
+        <img src="./css/logo1.svg" width="30" height="30" alt="logo"> Jack Frost
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -109,7 +109,8 @@
 
           <div class="col-lg-4 col-md-6 mb-4" th:each="productos : ${listaProducto}">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+             <!-- <img class="card-img-top" th:src="@{'data:' + ${productos.productFoto[0].tipo} + '; base64,' + ${productos.productFoto[0].lafoto}}" width="700" height="280"> -->
+              <img class="card-img-top" src="./SLAYER1.jpg" width="700" height="280"> -->
               <div class="card-body">
                 <form method="post" action="/Producto">
                     <input type="hidden" name="idProducto" th:attr="value=${productos.id}">
