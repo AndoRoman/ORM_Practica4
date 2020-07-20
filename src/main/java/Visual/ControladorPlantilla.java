@@ -39,6 +39,9 @@ public class ControladorPlantilla {
             //HOME
             path("/", () -> {
                 get("/", ctx -> {
+                    //List producto
+
+                    List<Producto> Productolist = ProductoBD.getInstancia().BuscarTODO();
                     //Dando identidad al usuario
                     if(ctx.sessionAttribute("usuario") == null){
                         ctx.cookie("usuario",ctx.cookie("JSESSIONID"));
@@ -65,7 +68,7 @@ public class ControladorPlantilla {
                     }
                     List<Producto> listaProductos = ProductoBD.getInstancia().productosXpagina(paginacion);
                     modelo.put("pagina", paginacion);
-                    modelo.put("cantidad_pagina", (int) Math.ceil((double) ProductoBD.getInstancia().findAll().size() / 10));
+                    modelo.put("cantidad_pagina", (int) Math.ceil((double) Productolist.size() / 10));
                     modelo.put("listaProducto", listaProductos);
                     //
                     try{

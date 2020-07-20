@@ -42,6 +42,15 @@ public class ProductoBD extends GestorBD<Producto>{
 
     }
 
+    public List<Producto> BuscarTODO() {
+
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createNativeQuery("SELECT * FROM PRODUCTO", Producto.class);
+        List<Producto> productoList = query.getResultList();
+
+        return productoList;
+    }
+
     public int cantProducto(){
         EntityManager entityManager = getEntityManager();
         String countQ = "SELECT COUNT(P.id) FROM Producto P";
