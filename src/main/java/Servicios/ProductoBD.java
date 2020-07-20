@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class ProductoBD extends GestorBD<Producto>{
     private static ProductoBD instancia;
 
