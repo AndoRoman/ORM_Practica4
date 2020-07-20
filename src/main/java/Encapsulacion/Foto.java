@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class Foto implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     private String nombreFoto;
     private String tipo;
     @Lob

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class ventaProducto implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     @Embedded
     private ProductoVendido producto;
     private int cantidad;

@@ -162,7 +162,7 @@ public class ControladorPlantilla {
                     Map<String, Object> view = new HashMap<>();
                     view.put("item", "Carrito de Compras(" + aux.getListaProductos().size() + ")");
                     if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
-                        view.put("admin", "Lista de Compras Realizadas");
+                        view.put("admin", "Administración");
                         view.put("adminProduct", "Gestion de Productos");
                         view.put("OUT", "Cerrar Session");
                         view.put("listaProductos", servicio.getListProduct());
@@ -187,7 +187,7 @@ public class ControladorPlantilla {
                     try {
                         view.put("user", "Carrito de: " +ctx.sessionAttribute("usuario"));
                         if(ctx.sessionAttribute("usuario").toString().matches("admin")) {
-                            view.put("admin", "Lista de Compras Realizadas");
+                            view.put("admin", "AAdministración");
                             view.put("adminProduct", "Gestion de Productos");
                             view.put("OUT", "Cerrar Session");
                         }

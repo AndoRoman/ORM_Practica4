@@ -26,19 +26,15 @@ public class ProductoBD extends GestorBD<Producto>{
         EntityManager em = getEntityManager();
         Query query = em.createQuery("select e from Producto e where e.nombre like :nombre", Producto.class);
         query.setParameter("nombre", nombre+"%");
-        List<Producto> P = query.getResultList();
-        return P;
+        return query.getResultList();
     }
 
     public List<Producto> productosXpagina(int pagina) {
-
         EntityManager entityManager = getEntityManager();
         Query query = entityManager.createNativeQuery("SELECT * FROM PRODUCTO", Producto.class);
         query.setFirstResult((pagina - 1) * 10);
         query.setMaxResults(10);
-        List<Producto> productoList = query.getResultList();
-
-        return productoList;
+        return query.getResultList();
 
     }
 
@@ -46,9 +42,7 @@ public class ProductoBD extends GestorBD<Producto>{
 
         EntityManager entityManager = getEntityManager();
         Query query = entityManager.createNativeQuery("SELECT * FROM PRODUCTO", Producto.class);
-        List<Producto> productoList = query.getResultList();
-
-        return productoList;
+        return query.getResultList();
     }
 
     public int cantProducto(){

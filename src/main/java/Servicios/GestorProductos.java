@@ -22,7 +22,7 @@ public class GestorProductos {
             ctx.uploadedFiles("lasfotos").forEach(uploadedFile -> {
                 System.out.println("\n CARGANDO IMAGEN!! \n");
                 try {
-                    byte[] bytes = (byte[]) uploadedFile.getContent().readAllBytes();
+                    byte[] bytes = uploadedFile.getContent().readAllBytes();
                     String encodedString = Base64.getEncoder().encodeToString(bytes);
                     Foto foto = new Foto(uploadedFile.getFilename(), uploadedFile.getContentType(), encodedString);
                     fotoList.add(foto);

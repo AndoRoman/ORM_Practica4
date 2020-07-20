@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 public class ValidacionSesion implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     private String iduser;
     @Id
     private int hash_sesion;
