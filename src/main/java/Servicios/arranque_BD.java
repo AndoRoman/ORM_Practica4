@@ -26,7 +26,7 @@ public class arranque_BD {
                     "-tcpAllowOthers",
                     "-tcpDaemon").start();
             //Abriendo el cliente web.
-            String status = Server.createWebServer("-trace", "-webPort", "0").start().getStatus();
+            String status = Server.createWebServer("-webPort", "9000", "-webDaemon", "-webAllowOthers").start().getStatus();
             //
             System.out.println("Status Web: " + status);
         } catch (SQLException ex) {

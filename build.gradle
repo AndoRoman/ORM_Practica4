@@ -7,7 +7,7 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
-mainClassName = 'Main'
+mainClassName = 'Controlador.Main'
 
 repositories {
     mavenCentral()
@@ -20,6 +20,8 @@ dependencies {
     compile 'org.thymeleaf:thymeleaf:3.0.5.RELEASE'
     //H2
     compile 'com.h2database:h2:1.4.191'
+    //POSTGRESQL
+    compile 'org.postgresql:postgresql:42.2.1'
     //Encriptador
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.3'
     //ORM - Hibernate.
@@ -32,6 +34,17 @@ shadowJar{
     classifier = ''
     archiveVersion = ''
 }
+
+/**
+ * tarea necesaria para heroku si optamos por la tarea de Shadowjar
+ * en el archivo Procfile debe estar el siguiente comando:
+ * web: java -jar build/libs/app.jar
+ */
+task stage {
+    dependsOn shadowJar
+}
+
+
 
 
 

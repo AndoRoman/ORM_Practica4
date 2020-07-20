@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Encapsulacion.Comentario</OriginalElement>
+  <nodes>
+    <node x="-8.0" y="-15.0">javax.persistence.Entity</node>
+    <node x="189.5" y="449.0">Encapsulacion.Ventas</node>
+    <node x="839.0" y="569.0">Encapsulacion.Comentario</node>
+    <node x="534.0" y="282.0">Encapsulacion.ventaProducto</node>
+    <node x="832.0" y="-38.0">Encapsulacion.ValidacionSesion</node>
+    <node x="556.0" y="162.0">Encapsulacion.ProductoVendido</node>
+    <node x="1399.5" y="631.0">Encapsulacion.Foto</node>
+    <node x="1105.0" y="809.0">Encapsulacion.Producto</node>
+    <node x="287.5" y="71.0">Encapsulacion.Usuario</node>
+    <node x="848.0" y="305.0">java.io.Serializable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Encapsulacion.ventaProducto" target="java.io.Serializable">
+      <point x="106.0" y="-0.0" />
+      <point x="-72.0" y="-0.0" />
+    </edge>
+    <edge source="Encapsulacion.Ventas" target="javax.persistence.Entity">
+      <point x="-130.5" y="-0.0" />
+      <point x="66.66666666666667" y="520.0" />
+      <point x="26.66666666666667" y="15.0" />
+    </edge>
+    <edge source="Encapsulacion.Usuario" target="java.io.Serializable">
+      <point x="72.5" y="-0.0" />
+      <point x="900.0" y="120.0" />
+      <point x="-20.0" y="-15.0" />
+    </edge>
+    <edge source="Encapsulacion.ventaProducto" target="Encapsulacion.ProductoVendido">
+      <point x="-106.0" y="-0.0" />
+      <point x="480.0" y="320.0" />
+      <point x="480.0" y="200.0" />
+      <point x="-84.0" y="-0.0" />
+    </edge>
+    <edge source="Encapsulacion.ValidacionSesion" target="java.io.Serializable">
+      <point x="0.0" y="38.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="Encapsulacion.Comentario" target="Encapsulacion.Producto">
+      <point x="81.0" y="-0.0" />
+      <point x="1160.0" y="640.0" />
+      <point x="-40.0" y="-71.0" />
+    </edge>
+    <edge source="Encapsulacion.ValidacionSesion" target="javax.persistence.Entity">
+      <point x="-88.0" y="-0.0" />
+      <point x="48.0" y="-0.0" />
+    </edge>
+    <edge source="Encapsulacion.Usuario" target="javax.persistence.Entity">
+      <point x="-72.5" y="-0.0" />
+      <point x="80.0" y="120.0" />
+      <point x="40.0" y="15.0" />
+    </edge>
+    <edge source="Encapsulacion.Ventas" target="java.io.Serializable">
+      <point x="130.5" y="-0.0" />
+      <point x="880.0" y="520.0" />
+      <point x="-40.0" y="15.0" />
+    </edge>
+    <edge source="Encapsulacion.Producto" target="Encapsulacion.Foto">
+      <point x="95.0" y="-0.0" />
+      <point x="1480.0" y="880.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="Encapsulacion.Ventas" target="Encapsulacion.ventaProducto">
+      <point x="0.0" y="-71.0" />
+      <point x="320.0" y="350.0" />
+      <point x="-106.0" y="30.0" />
+    </edge>
+    <edge source="Encapsulacion.Producto" target="java.io.Serializable">
+      <point x="0.0" y="-71.0" />
+      <point x="1200.0" y="330.0" />
+      <point x="72.0" y="10.0" />
+    </edge>
+    <edge source="Encapsulacion.Comentario" target="java.io.Serializable">
+      <point x="0.0" y="-71.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Encapsulacion.Foto" target="java.io.Serializable">
+      <point x="0.0" y="-49.0" />
+      <point x="1480.0" y="320.0" />
+      <point x="72.0" y="-0.0" />
+    </edge>
+    <edge source="Encapsulacion.ProductoVendido" target="java.io.Serializable">
+      <point x="84.0" y="-0.0" />
+      <point x="880.0" y="200.0" />
+      <point x="-40.0" y="-15.0" />
+    </edge>
+    <edge source="Encapsulacion.Producto" target="javax.persistence.Entity">
+      <point x="-95.0" y="-0.0" />
+      <point x="40.0" y="880.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Encapsulacion.Comentario" target="javax.persistence.Entity">
+      <point x="-81.0" y="-0.0" />
+      <point x="53.33333333333333" y="640.0" />
+      <point x="13.333333333333329" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Directed Orthogonal" zoom="0.5460852329038652" x="776.5" y="456.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

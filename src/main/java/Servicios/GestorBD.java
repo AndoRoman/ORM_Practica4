@@ -1,9 +1,12 @@
 package Servicios;
-
+import Controlador.Main;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class GestorBD<T> {
 
@@ -12,10 +15,14 @@ public class GestorBD<T> {
 
 
     public GestorBD(Class<T> claseEntidad) {
+
         if(emf == null) {
-            emf = Persistence.createEntityManagerFactory("MiORM_DB");
+            if(Main.getModoConexion().equalsIgnoreCase("Heroku")){
+                emf = getConfiguracionBaseDatosHeroku();
+            }else{
+                emf = Persistence.createEntityManagerFactory("MiORM_DB");
+            }
         }
-        this.claseEntidad = claseEntidad;
 
     }
 
@@ -48,6 +55,29 @@ public class GestorBD<T> {
 
         return null;
     }
+
+    private EntityManagerFactory getConfiguracionBaseDatosHeroku(){
+        //Leyendo la información de la variable de ambiente de Heroku
+        String databaseUrl = System.getenv("DATABASE_URL");
+        StringTokenizer st = new StringTokenizer(databaseUrl, ":@/");
+        //Separando las información del conexión.
+        String dbVendor = st.nextToken();
+        String userName = st.nextToken();
+        String password = st.nextToken();
+        String host = st.nextToken();
+        String port = st.nextToken();
+        String databaseName = st.nextToken();
+        //creando la jbdc String
+        String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s", host, port, databaseName);
+        //pasando las propiedades.
+        Map<String, String> properties = new HashMap<>();
+        properties.put("javax.persistence.jdbc.url", jdbcUrl );
+        properties.put("javax.persistence.jdbc.user", userName );
+        properties.put("javax.persistence.jdbc.password", password );
+        //
+        return Persistence.createEntityManagerFactory("Heroku", properties);
+    }
+
 
     /**
      *
